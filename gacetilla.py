@@ -20,11 +20,11 @@ import os
 # RUTAS
 # =============================================================
 
-base_path = r"C:\Users\flavi\Desktop\temas radio"
+current_path = os.path.dirname(os.path.abspath(__file__))
 
-cover = os.path.join(base_path, "aberrant_calamity.jpg")
-logo_path = os.path.join(base_path, "Prion logo.png")
-out = os.path.join(base_path, "PRION_Gacetilla_de_Prensa_2026_FINAL.pdf")
+cover = os.path.join(current_path, "aberrant_calamity.jpg")
+logo_path = os.path.join(current_path, "Prion logo.png")
+out = os.path.join(current_path, "PRION_Gacetilla_de_Prensa_2026_FINAL.pdf")
 
 
 # =============================================================
@@ -199,7 +199,7 @@ links = {
 def make_qr(data, filename):
 
     p = os.path.join(
-        base_path,
+        current_path,
         f"{filename}.png"
     )
 

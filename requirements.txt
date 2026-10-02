@@ -1,2 +1,2 @@
 reportlab
-qrcode
+Pillow

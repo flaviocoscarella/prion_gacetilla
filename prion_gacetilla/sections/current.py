@@ -36,7 +36,9 @@ def build_current_section(styles, assets):
         Paragraph(
             "La banda continúa presentando el nuevo material en vivo y "
             "desarrollando su actividad de prensa y difusión alrededor "
-            "de este adelanto.",
+            "de este adelanto. Mientras tanto, Prion se encuentra "
+            "finalizando en su próximo álbum en vistas de ser lanzado"
+            "en el año 2027.",
             styles["Body"],
         ),
         Spacer(1, 4 * mm),
@@ -50,18 +52,12 @@ def build_current_section(styles, assets):
             kind="proportional",
         ),
         Spacer(1, 6 * mm),
-        Paragraph(
-            "Esta es la alineación que actualmente lleva adelante "
-            "la presentación en vivo y la promoción del nuevo material.",
-            styles["Body"],
-        ),
-        Spacer(1, 3 * mm),
         Paragraph("TRAYECTORIA INTERNACIONAL", styles["H1"]),
         Paragraph(
             "Prion desarrolló una importante actividad internacional, "
             "con tres giras europeas realizadas. La primera tuvo lugar "
-            "en junio de 2011 e incluyó presentaciones en Serbia, "
-            "Macedonia, Croacia, Hungría y España.",
+            "en junio de 2011 e incluyó presentaciones en Italia, "
+            "Rep. Checa, Macedonia, Hungría y España",
             styles["Body"],
         ),
         Paragraph(
@@ -95,9 +91,9 @@ def build_current_section(styles, assets):
             "de las bandas más reconocidas del Death y Black Metal internacional, "
             "entre ellas <b>PESTILENCE</b>, <b>IMMOLATION</b>, "
             "<b>MORBID ANGEL</b>, <b>NILE</b>, <b>DEICIDE</b>, "
-            "<b>VADER</b>, <b>OBITUARY</b>, <b>BEHEMOTH</b> y "
-            "<b>MAYHEM</b>, formando parte de importantes fechas de la escena "
-            "extrema en Buenos Aires.",
+            "<b>VADER</b>, <b>OBITUARY</b>, <b>BEHEMOTH</b>, "
+            "<b>VITAL REMAINS</b> y <b>MAYHEM</b>, formando parte de importantes"
+            "fechas de la escena extrema en Buenos Aires.",
             styles["Body"],
         ),
         Spacer(1, 3 * mm),

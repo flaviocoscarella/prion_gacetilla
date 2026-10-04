@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Optional, Tuple
 
-from PIL import Image as PILImage
+from PIL import Image as PILImage, ImageEnhance
 
 from .config import BAND_PHOTO_PATH, COVER_PATH, LOGO_PATH, ASSETS_DIR
 
@@ -32,11 +32,12 @@ def optimize_image(
     max_width: int = 1800,
     max_height: int = 1800,
     quality: int = 85,
+    darken: float = 1.0
 ) -> Tuple[Path, Tuple[int, int]]:
     output_path = ASSETS_DIR / output_name
-    existing_image = _read_existing_image(output_path)
-    if existing_image is not None:
-        return existing_image
+    # existing_image = _read_existing_image(output_path)
+    # if existing_image is not None:
+    #     return existing_image
 
     with PILImage.open(input_path) as image:
         if image.mode != "RGB":
@@ -47,12 +48,17 @@ def optimize_image(
             PILImage.Resampling.LANCZOS,
         )
         dimensions = image.size
+
+        if darken != 1.0:
+            image = ImageEnhance.Brightness(image).enhance(darken)
+            
         image.save(
             output_path,
             "JPEG",
             quality=quality,
             optimize=True,
             progressive=True,
+            darken=darken
         )
 
     return output_path, dimensions
@@ -103,6 +109,7 @@ def prepare_assets() -> PreparedAssets:
         max_width=1800,
         max_height=1800,
         quality=82,
+        darken=0.7
     )
 
     logo, logo_size = optimize_image_png(

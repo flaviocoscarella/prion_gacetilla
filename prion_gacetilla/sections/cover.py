@@ -20,26 +20,16 @@ def build_cover(styles, assets, links):
         Spacer(1, 10 * mm),
         Paragraph("GACETILLA DE PRENSA · 2026", styles["CoverSub"]),
         Spacer(1, 23 * mm),
-        Paragraph(
-            "<b>SHADOWS SWIRL</b><br/>"
-            "Adelanto del nuevo material de Prion",
-            styles["Quote"],
-        ),
+        # Paragraph(
+        #     "<b>SHADOWS SWIRL</b><br/>"
+        #     "Adelanto del nuevo material de Prion",
+        #     styles["Quote"],
+        # ),
         Paragraph(
             "Más de tres décadas de Death Metal extremo.",
             styles["CoverSub"],
         ),
         Spacer(1, 17 * mm),
-        Table(
-            [[
-                Paragraph(name.upper(), styles["Small"])
-                for name in links
-            ]],
-            colWidths=[29 * mm] * 5,
-            style=TableStyle(
-                [("ALIGN", (0, 0), (-1, -1), "CENTER")]
-            ),
-        ),
         PageBreak(),
     ]
     return story

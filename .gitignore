@@ -2,3 +2,4 @@
 *.pdf
 *.jpg
 *.webp
+prion_gacetilla/__pycache__/*

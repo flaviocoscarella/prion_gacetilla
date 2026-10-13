@@ -85,10 +85,19 @@ def build_biography_section(styles):
         Spacer(1, 7 * mm),
         Paragraph("SONIDO Y PROPUESTA", styles["H1"]),
         Paragraph(
-            "Death Metal extremo con una combinación de brutalidad, "
-            "precisión y pasajes técnicos. La propuesta de Prion se "
-            "completa con una puesta en vivo intensa y directa, "
-            "construida para escenarios de metal extremo.",
+            "A lo largo de su trayectoria, Prion desarrolló una identidad "
+            "sonora en constante evolución, incorporando diferentes matices "
+            "dentro del Death Metal extremo. Su álbum debut, "
+            "<i>Time of Plagues</i> (2003), presenta un enfoque más cercano "
+            "al Death/Thrash, con una combinación de elementos que remite "
+            "a la agresividad de Death y Sepultura. En <i>Impressions</i> "
+            "(2008), el sonido se volvió más brutal y contundente, con una "
+            "orientación marcada hacia la intensidad y la precisión de "
+            "Hate Eternal. A partir de <i>Uncertain Process</i> (2015), "
+            "la música incorporó cierta afinidad con la oscuridad, "
+            "la densidad y el carácter disonante de Immolation, sin "
+            "abandonar la brutalidad, la agresividad y la técnica "
+            "desarrolladas en la etapa anterior.",
             styles["Body"],
         ),
         PageBreak(),

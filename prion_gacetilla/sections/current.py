@@ -37,7 +37,7 @@ def build_current_section(styles, assets):
             "La banda continúa presentando el nuevo material en vivo y "
             "desarrollando su actividad de prensa y difusión alrededor "
             "de este adelanto. Mientras tanto, Prion se encuentra "
-            "finalizando en su próximo álbum en vistas de ser lanzado"
+            "finalizando su próximo álbum en vistas de ser lanzado"
             "en el año 2027.",
             styles["Body"],
         ),

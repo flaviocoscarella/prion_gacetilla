@@ -72,7 +72,7 @@ def build_current_section(styles, assets):
             "compartiendo escenario con <b>Avulsed</b> (España) y "
             "<b>Natron</b> (Italia). La gira incluyó fechas en distintos "
             "países europeos y festivales del circuito extremo, consolidando "
-            "la presencia de Prion fuera de Argentina.",
+            "su presencia fuera de Argentina.",
             styles["Body"],
         ),
         Paragraph(

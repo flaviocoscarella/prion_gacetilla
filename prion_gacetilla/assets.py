@@ -114,7 +114,7 @@ def prepare_assets() -> PreparedAssets:
 
     logo, logo_size = optimize_image_png(
         LOGO_PATH,
-        "Prion-logo_optimized.png",
+        "prion_logo_optimized.png",
         max_width=1800,
         max_height=1800,
     )

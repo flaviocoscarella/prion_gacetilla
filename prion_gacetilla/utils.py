@@ -3,7 +3,7 @@ from reportlab.lib.colors import HexColor
 from reportlab.lib.units import mm
 from reportlab.graphics.barcode.qr import QrCodeWidget
 from reportlab.graphics.shapes import Drawing
-from reportlab.platypus import Table, TableStyle
+from reportlab.platypus import Flowable, Paragraph, Table, TableStyle
 
 from .styles import DARK
 
@@ -24,6 +24,74 @@ def make_qr(data):
     )
     drawing.add(qr)
     return drawing
+
+
+class TaperedSeparator(Flowable):
+    def __init__(
+        self,
+        width=100 * mm,
+        height=1 * mm,
+        color=colors.HexColor("#8B1A1A"),
+    ):
+        super().__init__()
+        self.width = width
+        self.height = height
+        self.color = color
+        self.hAlign = "CENTER"
+
+    def draw(self):
+        canvas = self.canv
+        canvas.setFillColor(self.color)
+
+        path = canvas.beginPath()
+        path.moveTo(0, self.height / 2)
+        path.lineTo(self.width / 2, self.height)
+        path.lineTo(self.width, self.height / 2)
+        path.lineTo(self.width / 2, 0)
+        path.close()
+
+        canvas.drawPath(path, fill=1, stroke=0)
+
+
+def make_h1(text, style):
+    return _H1Heading(text, style)
+
+
+class _H1Heading(Flowable):
+    def __init__(self, text, style):
+        super().__init__()
+        self.paragraph = Paragraph(text, style)
+        self.separator = TaperedSeparator()
+        self.paragraph_height = 0
+        self.separator_gap = 6
+        self.space_after = max(0, style.spaceAfter - self.separator_gap)
+
+    def wrap(self, avail_width, avail_height):
+        self.width = avail_width
+        _, self.paragraph_height = self.paragraph.wrap(
+            avail_width,
+            avail_height,
+        )
+        self.separator.width = min(self.separator.width, avail_width)
+        self.height = (
+            self.separator.height
+            + self.separator_gap
+            + self.paragraph_height
+            + self.space_after
+        )
+        return self.width, self.height
+
+    def draw(self):
+        self.separator.drawOn(
+            self.canv,
+            (self.width - self.separator.width) / 2,
+            self.space_after + self.paragraph_height + self.separator_gap,
+        )
+        self.paragraph.drawOn(
+            self.canv,
+            0,
+            self.space_after,
+        )
 
 
 def style_data_table(

@@ -1,7 +1,7 @@
 from reportlab.lib.units import mm
 from reportlab.platypus import Image, Paragraph, Spacer, Table, TableStyle
 
-from ..utils import make_qr, style_data_table
+from ..utils import make_h1, make_qr, style_data_table
 
 
 QR_NAMES = ["Instagram", "YouTube", "Bandcamp", "Spotify"]
@@ -61,10 +61,12 @@ def build_press_section(styles, assets, links):
         ),
         links_table,
         Spacer(1, 7 * mm),
-        Paragraph("ACCESO DIRECTO", styles["H1"]),
+        make_h1("ACCESO DIRECTO", styles["H1"]),
+        Spacer(1, 4 * mm),
         qr_table,
         Spacer(1, 6 * mm),
-        Paragraph("MATERIAL DE PRENSA", styles["H1"]),
+        make_h1("MATERIAL DE PRENSA", styles["H1"]),
+        Spacer(1, 4 * mm),
         Paragraph(
             "Este documento puede acompañarse con fotografías "
             "oficiales en alta resolución, logo vectorial, portada "

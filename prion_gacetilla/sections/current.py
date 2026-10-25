@@ -1,8 +1,7 @@
 from reportlab.lib.units import mm
 from reportlab.platypus import Image, PageBreak, Paragraph, Spacer, Table
 
-from ..utils import style_data_table
-
+from ..utils import make_h1, style_data_table
 
 def build_current_section(styles, assets):
     members = [
@@ -41,8 +40,9 @@ def build_current_section(styles, assets):
             "en el año 2027.",
             styles["Body"],
         ),
+        Spacer(1, 3 * mm),
+        make_h1("FORMACIÓN ACTUAL", styles["H1"]),
         Spacer(1, 4 * mm),
-        Paragraph("FORMACIÓN ACTUAL", styles["H1"]),
         member_table,
         Spacer(1, 6 * mm),
         Image(
@@ -51,8 +51,9 @@ def build_current_section(styles, assets):
             height=150 * mm * assets.band_photo_ratio,
             kind="proportional",
         ),
-        Spacer(1, 6 * mm),
-        Paragraph("TRAYECTORIA INTERNACIONAL", styles["H1"]),
+        Spacer(1, 7 * mm),
+        make_h1("TRAYECTORIA INTERNACIONAL", styles["H1"]),
+        Spacer(1, 3 * mm),
         Paragraph(
             "Prion desarrolló una importante actividad internacional, "
             "con tres giras europeas realizadas. La primera tuvo lugar "
@@ -98,7 +99,8 @@ def build_current_section(styles, assets):
             styles["Body"],
         ),
         Spacer(1, 3 * mm),
-        Paragraph("ACTIVIDAD EN VIVO ACTUAL", styles["H1"]),
+        make_h1("ACTIVIDAD EN VIVO ACTUAL", styles["H1"]),
+        Spacer(1, 3 * mm),
         Paragraph(
             "Durante 2026, Prion continúa llevando su propuesta de "
             "Death Metal extremo a escenarios de Buenos Aires y sumando "

@@ -3,10 +3,15 @@ from reportlab.lib.styles import ParagraphStyle
 from reportlab.lib.units import mm
 from reportlab.platypus import Image, PageBreak, Paragraph, Spacer, Table, TableStyle
 
-from ..utils import style_data_table
+from ..utils import make_h1, style_data_table
 
 
 def build_biography_section(styles, assets, content_width, content_height):
+    biography_body_style = ParagraphStyle(
+        "BiographyBody",
+        parent=styles["Body"],
+        leading=12.5,
+    )
     discography = [
         ["2003", "Time of Plagues", "Larga duración"],
         ["2008", "Impressions", "Larga duración"],
@@ -17,9 +22,9 @@ def build_biography_section(styles, assets, content_width, content_height):
     discography_table = Table(
         [
             [
-                Paragraph(f"<b>{year}</b>", styles["Body"]),
-                Paragraph(title, styles["Body"]),
-                Paragraph(kind, styles["Body"]),
+                Paragraph(f"<b>{year}</b>", biography_body_style),
+                Paragraph(title, biography_body_style),
+                Paragraph(kind, biography_body_style),
             ]
             for year, title, kind in discography
         ],
@@ -40,24 +45,26 @@ def build_biography_section(styles, assets, content_width, content_height):
             "desarrolló una propuesta basada en la brutalidad, "
             "la precisión técnica, riffs de alta intensidad y "
             "una marcada identidad dentro del metal extremo.",
-            styles["Body"],
+            biography_body_style,
         ),
         Paragraph(
             "Durante su primera y extensa etapa, la batería estuvo a cargo "
             "de <b>Marcelo Russo</b>, quien formó parte desde los "
-            "comienzos, con una interrupción entre 2004 y 2006, y permaneció "
-            "en la banda hasta fines de 2015. Russo participó en la grabación "
-            "de los principales trabajos de estudio de esa etapa, incluyendo "
-            "<i>Time of Plagues</i> (2003), <i>Impressions</i> (2008) y "
-            "<i>Uncertain Process</i> (2015).",
-            styles["Body"],
+            "comienzos, con una interrupción entre 2004 y 2006 donde <b>Rodrigo "
+            "Robledo</b> ocupó su lugar, y permaneció en la banda hasta fines de "
+            "2015. Russo participó en la grabación de los principales trabajos "
+            "de estudio de esa etapa, incluyendo <i>Time of Plagues</i> (2003), "
+            "<i>Impressions</i> (2008) y <i>Uncertain Process</i> (2015).",
+            biography_body_style,
         ),
         Paragraph(
             "Entre los integrantes de la primera etapa de Prion también se "
             "encontró <b>Diego Braña</b>, quien formó parte de la banda desde "
-            "su fundación en 1994 hasta 2006, participando activamente en el "
-            "desarrollo de la formación y en la trayectoria inicial.",
-            styles["Body"],
+            "su fundación en 1994 hasta 2004, participando activamente en el "
+            "desarrollo de la formación y en la trayectoria inicial, e <b>Iñaki "
+            "Meli</b>, quien se incorporó a la banda en 1996 y permaneció hasta "
+            "el 2000.",
+            biography_body_style,
         ),
         Paragraph(
             "A fines de 2015, luego de la tercera gira europea de la banda, "
@@ -66,7 +73,7 @@ def build_biography_section(styles, assets, content_width, content_height):
             "2016. Desde entonces, Coscarella pasó a ocupar la batería y "
             "participó en la siguiente etapa discográfica de la banda, "
             "incluyendo <i>Aberrant Calamity</i> (2019).",
-            styles["Body"],
+            biography_body_style,
         ),
         Paragraph(
             "La discografía de la banda incluye "
@@ -75,7 +82,7 @@ def build_biography_section(styles, assets, content_width, content_height):
             "<i>Uncertain Process</i> (2015) y "
             "<i>Aberrant Calamity</i> (2019), además de material "
             "previo, splits y participaciones en compilaciones.",
-            styles["Body"],
+            biography_body_style,
         ),
         Paragraph(
             "<i>Aberrant Calamity</i>, publicado por Comatose Music "
@@ -83,13 +90,15 @@ def build_biography_section(styles, assets, content_width, content_height):
             "Metal brutal y técnico. Actualmente la banda trabaja "
             "en nuevo material, cuyo primer adelanto es "
             "<i>Shadows Swirl</i>.",
-            styles["Body"],
+            biography_body_style,
         ),
         Spacer(1, 3 * mm),
-        Paragraph("DISCOGRAFÍA SELECCIONADA", styles["H1"]),
-        discography_table,
+        make_h1("DISCOGRAFÍA SELECCIONADA", styles["H1"]),
         Spacer(1, 3 * mm),
-        Paragraph("SONIDO Y PROPUESTA", styles["H1"]),
+        discography_table,
+        Spacer(1, 5 * mm),
+        make_h1("SONIDO Y PROPUESTA", styles["H1"]),
+        Spacer(1, 3 * mm),
         Paragraph(
             "A lo largo de su trayectoria, Prion desarrolló una identidad "
             "sonora en constante evolución, incorporando diferentes matices "
@@ -104,7 +113,7 @@ def build_biography_section(styles, assets, content_width, content_height):
             "la densidad y el carácter disonante de Immolation, sin "
             "abandonar la brutalidad, la agresividad y la técnica "
             "desarrolladas en la etapa anterior.",
-            styles["Body"],
+            biography_body_style,
         ),
     ]
 

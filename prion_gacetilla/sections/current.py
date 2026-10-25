@@ -67,6 +67,7 @@ def build_current_section(styles, assets):
             "en festivales como NRW Deathfest, GrindHoven y Morbide Fest.",
             styles["Body"],
         ),
+        Spacer(1, 6 * mm),
         Paragraph(
             "En septiembre de 2015 llegó la tercera gira europea, "
             "compartiendo escenario con <b>Avulsed</b> (España) y "

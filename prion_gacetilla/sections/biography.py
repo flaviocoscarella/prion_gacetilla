@@ -1,10 +1,12 @@
+from reportlab.lib.enums import TA_CENTER
+from reportlab.lib.styles import ParagraphStyle
 from reportlab.lib.units import mm
-from reportlab.platypus import PageBreak, Paragraph, Spacer, Table
+from reportlab.platypus import Image, PageBreak, Paragraph, Spacer, Table, TableStyle
 
 from ..utils import style_data_table
 
 
-def build_biography_section(styles):
+def build_biography_section(styles, assets, content_width, content_height):
     discography = [
         ["2003", "Time of Plagues", "Larga duración"],
         ["2008", "Impressions", "Larga duración"],
@@ -21,11 +23,15 @@ def build_biography_section(styles):
             ]
             for year, title, kind in discography
         ],
-        colWidths=[18 * mm, 55 * mm, 72 * mm],
+        colWidths=[15 * mm, 39 * mm, 43 * mm],
     )
-    style_data_table(discography_table)
+    style_data_table(
+        discography_table,
+        horizontal_padding=3,
+        vertical_padding=2,
+    )
 
-    return [
+    biography = [
         Paragraph("BIOGRAFÍA", styles["H1"]),
         Paragraph(
             "<b>Prion</b> es una banda argentina de Death Metal "
@@ -82,7 +88,7 @@ def build_biography_section(styles):
         Spacer(1, 3 * mm),
         Paragraph("DISCOGRAFÍA SELECCIONADA", styles["H1"]),
         discography_table,
-        Spacer(1, 7 * mm),
+        Spacer(1, 3 * mm),
         Paragraph("SONIDO Y PROPUESTA", styles["H1"]),
         Paragraph(
             "A lo largo de su trayectoria, Prion desarrolló una identidad "
@@ -100,5 +106,70 @@ def build_biography_section(styles):
             "desarrolladas en la etapa anterior.",
             styles["Body"],
         ),
+    ]
+
+    column_widths = [content_width * 0.7, content_width * 0.3]
+    cover_width = min(48 * mm, column_widths[1])
+    album_caption_style = ParagraphStyle(
+        "AlbumCaption",
+        parent=styles["Small"],
+        alignment=TA_CENTER,
+        fontSize=7,
+        leading=8.5,
+    )
+    cover_rows = []
+    for album in assets.album_covers:
+        image_scale = cover_width / max(1, album.ratio)
+        cover_rows.append(
+            [
+                Image(
+                    str(album.path),
+                    width=image_scale,
+                    height=image_scale * album.ratio,
+                ),
+                Paragraph(
+                    f"<b>{album.title}</b> · {album.year}",
+                    album_caption_style,
+                ),
+            ]
+        )
+    cover_column = Table(
+        [[row] for row in cover_rows],
+        colWidths=[cover_width],
+        rowHeights=[content_height / len(cover_rows)] * len(cover_rows),
+    )
+    cover_column.setStyle(
+        TableStyle(
+            [
+                ("ALIGN", (0, 0), (-1, -1), "CENTER"),
+                ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
+                ("LEFTPADDING", (0, 0), (-1, -1), 0),
+                ("RIGHTPADDING", (0, 0), (-1, -1), 0),
+                ("TOPPADDING", (0, 0), (-1, -1), 0),
+                ("BOTTOMPADDING", (0, 0), (-1, -1), 0),
+            ]
+        )
+    )
+
+    biography_layout = Table(
+        [[biography, cover_column]],
+        colWidths=column_widths,
+        hAlign="LEFT",
+    )
+    biography_layout.setStyle(
+        TableStyle(
+            [
+                ("VALIGN", (0, 0), (-1, -1), "TOP"),
+                ("LEFTPADDING", (0, 0), (-1, -1), 0),
+                ("RIGHTPADDING", (0, 0), (0, 0), 3 * mm),
+                ("RIGHTPADDING", (1, 0), (1, 0), 0),
+                ("TOPPADDING", (0, 0), (-1, -1), 0),
+                ("BOTTOMPADDING", (0, 0), (-1, -1), 0),
+            ]
+        )
+    )
+
+    return [
+        biography_layout,
         PageBreak(),
     ]

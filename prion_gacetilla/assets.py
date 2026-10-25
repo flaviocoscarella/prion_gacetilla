@@ -4,7 +4,21 @@ from typing import Optional, Tuple
 
 from PIL import Image as PILImage, ImageEnhance
 
-from .config import BAND_PHOTO_PATH, COVER_PATH, LOGO_PATH, ASSETS_DIR
+from .config import (
+    ALBUM_COVERS,
+    BAND_PHOTO_PATH,
+    COVER_PATH,
+    LOGO_PATH,
+    ASSETS_DIR,
+)
+
+
+@dataclass(frozen=True)
+class AlbumCover:
+    title: str
+    year: str
+    path: Path
+    ratio: float
 
 
 @dataclass(frozen=True)
@@ -12,6 +26,7 @@ class PreparedAssets:
     cover: Path
     logo: Path
     band_photo: Path
+    album_covers: Tuple[AlbumCover, ...]
     logo_ratio: float
     band_photo_ratio: float
 
@@ -96,13 +111,32 @@ def optimize_image_png(
 
 
 def prepare_assets() -> PreparedAssets:
-    cover, _ = optimize_image(
+    background_cover, _ = optimize_image(
         COVER_PATH,
         "aberrant_calamity_optimized.jpg",
         max_width=1800,
         max_height=1800,
         quality=82,
     )
+
+    album_covers = []
+    for title, year, source_path, output_name in ALBUM_COVERS:
+        cover_path, cover_size = optimize_image(
+            source_path,
+            output_name,
+            max_width=1800,
+            max_height=1800,
+            quality=82,
+        )
+        album_covers.append(
+            AlbumCover(
+                title=title,
+                year=year,
+                path=cover_path,
+                ratio=cover_size[1] / cover_size[0],
+            )
+        )
+
     band_photo, band_size = optimize_image(
         BAND_PHOTO_PATH,
         "prion_banda_optimized.jpg",
@@ -120,9 +154,10 @@ def prepare_assets() -> PreparedAssets:
     )
 
     return PreparedAssets(
-        cover=cover,
+        cover=background_cover,
         logo=logo,
         band_photo=band_photo,
+        album_covers=tuple(album_covers),
         logo_ratio=logo_size[1] / logo_size[0],
         band_photo_ratio=band_size[1] / band_size[0],
     )

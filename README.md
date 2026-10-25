@@ -15,8 +15,15 @@ También se puede ejecutar como módulo:
 python -m prion_gacetilla
 ```
 
-Los originales de las imágenes deben estar en `src/images/`. El PDF y las
-versiones JPG optimizadas se generan en la raíz del proyecto.
+Los originales de las imágenes deben estar en `src/images/`. El PDF se genera
+en la raíz del proyecto y las versiones JPG optimizadas junto a sus originales.
+Las tapas originales de `Time of Plagues`, `Impressions`, `Uncertain Process`
+y `Aberrant Calamity` se optimizan como JPG y se distribuyen a la derecha de
+la biografía en cuatro espacios iguales que ocupan toda el área imprimible
+de la página, manteniendo la proporción de cada imagen. La tapa de
+`Aberrant Calamity` es `aberrant calamity cover.jpg`; `aberrant_calamity.webp`
+se reserva para el fondo del documento y se optimiza como
+`aberrant_calamity_optimized.jpg`.
 
 ## Organización
 

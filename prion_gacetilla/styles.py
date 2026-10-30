@@ -25,8 +25,14 @@ def _register_fonts():
     bold_font = Path(
         "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
     )
-    if not regular_font.is_file() or not bold_font.is_file():
-        return "Helvetica", "Helvetica-Bold"
+    oblique_font = Path(
+        "/usr/share/fonts/truetype/dejavu/DejaVuSans-Oblique.ttf"
+    )
+    bold_oblique_font = Path(
+        "/usr/share/fonts/truetype/dejavu/DejaVuSans-BoldOblique.ttf"
+    )
+    if not regular_font.is_file() or not bold_font.is_file() or not oblique_font.is_file() or not bold_oblique_font.is_file():
+        return "Helvetica", "Helvetica-Bold", "Helvetica-Oblique", "Helvetica-BoldOblique"
 
     pdfmetrics.registerFont(
         TTFont("DejaVuSans", str(regular_font))
@@ -34,11 +40,17 @@ def _register_fonts():
     pdfmetrics.registerFont(
         TTFont("DejaVuSans-Bold", str(bold_font))
     )
-    return "DejaVuSans", "DejaVuSans-Bold"
+    pdfmetrics.registerFont(
+        TTFont("DejaVuSans-Oblique", str(oblique_font))
+    )
+    pdfmetrics.registerFont(
+        TTFont("DejaVuSans-BoldOblique", str(bold_font))
+    )
+    return "DejaVuSans", "DejaVuSans-Bold", "DejaVuSans-Oblique", "DejaVuSans-BoldOblique"
 
 
 def create_styles():
-    body_font, bold_font = _register_fonts()
+    body_font, bold_font, oblique_font, bold_oblique_font = _register_fonts()
     styles = getSampleStyleSheet()
 
     styles.add(
@@ -55,7 +67,37 @@ def create_styles():
         ParagraphStyle(
             name="CoverSub",
             fontName=body_font,
-            fontSize=10.5,
+            fontSize=14,
+            leading=14,
+            textColor=GRAY,
+            alignment=TA_CENTER,
+        )
+    )
+    styles.add(
+        ParagraphStyle(
+            name="CoverSubBold",
+            fontName=bold_font,
+            fontSize=14,
+            leading=14,
+            textColor=GRAY,
+            alignment=TA_CENTER,
+        )
+    )
+    styles.add(
+        ParagraphStyle(
+            name="CoverSubBoldOblique",
+            fontName=bold_oblique_font,
+            fontSize=14,
+            leading=14,
+            textColor=GRAY,
+            alignment=TA_CENTER,
+        )
+    )
+    styles.add(
+        ParagraphStyle(
+            name="CoverSubOblique",
+            fontName=oblique_font,
+            fontSize=14,
             leading=14,
             textColor=GRAY,
             alignment=TA_CENTER,

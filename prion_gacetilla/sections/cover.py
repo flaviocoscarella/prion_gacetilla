@@ -15,10 +15,10 @@ def build_cover(styles, assets, links):
         Spacer(1, 10 * mm),
         Paragraph(
             "DEATH METAL · BUENOS AIRES, ARGENTINA",
-            styles["CoverSub"],
+            styles["CoverSubBold"],
         ),
         Spacer(1, 10 * mm),
-        Paragraph("GACETILLA DE PRENSA · 2026", styles["CoverSub"]),
+        Paragraph("GACETILLA DE PRENSA · 2026", styles["CoverSubBold"]),
         Spacer(1, 23 * mm),
         # Paragraph(
         #     "<b>SHADOWS SWIRL</b><br/>"
@@ -27,7 +27,7 @@ def build_cover(styles, assets, links):
         # ),
         Paragraph(
             "Más de tres décadas de Death Metal extremo.",
-            styles["CoverSub"],
+            styles["CoverSubBoldOblique"],
         ),
         Spacer(1, 17 * mm),
         PageBreak(),

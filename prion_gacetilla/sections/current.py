@@ -1,9 +1,27 @@
+from reportlab.lib.enums import TA_CENTER
+from reportlab.lib.styles import ParagraphStyle
 from reportlab.lib.units import mm
-from reportlab.platypus import Image, PageBreak, Paragraph, Spacer, Table
+from reportlab.platypus import (
+    Image,
+    PageBreak,
+    Paragraph,
+    Spacer,
+    Table,
+    TableStyle,
+)
 
+from ..styles import RED
 from ..utils import make_h1, style_data_table
 
+
 def build_current_section(styles, assets):
+    band_photo_caption_style = ParagraphStyle(
+        "BandPhotoCaption",
+        parent=styles["Small"],
+        fontSize=11,
+        alignment=TA_CENTER,
+        spaceBefore=2,
+    )
     members = [
         ["GREGORIO KOCHIAN", "Voz · Guitarra"],
         ["WALTER BARRIONUEVO", "Bajo"],
@@ -20,6 +38,25 @@ def build_current_section(styles, assets):
         colWidths=[75 * mm, 70 * mm],
     )
     style_data_table(member_table, alternating_rows=False)
+
+    band_photo = Image(
+        str(assets.band_photo),
+        width=150 * mm,
+        height=150 * mm * assets.band_photo_ratio,
+        kind="proportional",
+    )
+    band_photo_frame = Table([[band_photo]], colWidths=[150 * mm])
+    band_photo_frame.setStyle(
+        TableStyle(
+            [
+                ("BOX", (0, 0), (-1, -1), 1.5, "#8B1A1A"),
+                ("LEFTPADDING", (0, 0), (-1, -1), 0),
+                ("RIGHTPADDING", (0, 0), (-1, -1), 0),
+                ("TOPPADDING", (0, 0), (-1, -1), 0),
+                ("BOTTOMPADDING", (0, 0), (-1, -1), 0),
+            ]
+        )
+    )
 
     return [
         Paragraph("SHADOWS SWIRL", styles["H1"]),
@@ -40,19 +77,16 @@ def build_current_section(styles, assets):
             "en el año 2027.",
             styles["Body"],
         ),
-        Spacer(1, 3 * mm),
+        Spacer(1, 5 * mm),
         make_h1("FORMACIÓN ACTUAL", styles["H1"]),
         Spacer(1, 4 * mm),
         member_table,
         Spacer(1, 6 * mm),
-        Image(
-            str(assets.band_photo),
-            width=150 * mm,
-            height=150 * mm * assets.band_photo_ratio,
-            kind="proportional",
-        ),
+        band_photo_frame,
+        Paragraph("(formación actual)", band_photo_caption_style),
+        PageBreak(),
         Spacer(1, 7 * mm),
-        make_h1("TRAYECTORIA INTERNACIONAL", styles["H1"]),
+        Paragraph("TRAYECTORIA INTERNACIONAL", styles["H1"]),
         Spacer(1, 3 * mm),
         Paragraph(
             "Prion desarrolló una importante actividad internacional, "
@@ -68,7 +102,6 @@ def build_current_section(styles, assets):
             "en festivales como NRW Deathfest, GrindHoven y Morbide Fest.",
             styles["Body"],
         ),
-        Spacer(1, 6 * mm),
         Paragraph(
             "En septiembre de 2015 llegó la tercera gira europea, "
             "compartiendo escenario con <b>Avulsed</b> (España) y "

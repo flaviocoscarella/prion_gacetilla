@@ -41,10 +41,10 @@ def build_biography_section(styles, assets, content_width, content_height):
         Paragraph(
             "<b>Prion</b> es una banda argentina de Death Metal "
             "originaria de Buenos Aires, formada en 1994. "
-            "A lo largo de más de tres décadas de actividad, "
-            "desarrolló una propuesta basada en la brutalidad, "
-            "la precisión técnica, riffs de alta intensidad y "
-            "una marcada identidad dentro del metal extremo.",
+            "Con más de 30 años (con <b>Gregorio Kochian</b> "
+            "como único miembro constante), desarrolló una propuesta "
+            "basada en la brutalidad y técnica, con riffs de alta "
+            "intensidad dentro del death metal.",
             biography_body_style,
         ),
         Paragraph(
@@ -58,19 +58,19 @@ def build_biography_section(styles, assets, content_width, content_height):
             biography_body_style,
         ),
         Paragraph(
-            "Entre los integrantes de la primera etapa de Prion también se "
-            "encontró <b>Diego Braña</b>, quien formó parte de la banda desde "
-            "su fundación en 1994 hasta 2004, participando activamente en el "
-            "desarrollo de la formación y en la trayectoria inicial, e <b>Iñaki "
-            "Meli</b>, quien se incorporó a la banda en 1996 y permaneció hasta "
-            "el 2000.",
+            "Entre los integrantes de la primera etapa de Prion también formaron "
+            "parte <b>Diego Braña</b> e <b>Iñaki Meli</b>, quienes estuvieron "
+            "en la banda desde su fundación en 1994, participando activamente en la "
+            "trayectoria inicial. En el año 2000 Iñaki abandonó la banda y fue "
+            "reemplazado por <b>Walter Barrionuevo</b>, y Diego Braña hizo lo propio "
+            "en el 2004, quedando la banda conformada como trío.",
             biography_body_style,
         ),
         Paragraph(
             "A fines de 2015, luego de la tercera gira europea de la banda, "
             "Marcelo Russo dejó la banda y fue reemplazado por "
             "<b>Flavio Coscarella</b>, quien se incorporó a la formación en "
-            "2016. Desde entonces, Coscarella pasó a ocupar la batería y "
+            "2016. Desde entonces, Flavio pasó a ocupar la batería y "
             "participó en la siguiente etapa discográfica de la banda, "
             "incluyendo <i>Aberrant Calamity</i> (2019).",
             biography_body_style,

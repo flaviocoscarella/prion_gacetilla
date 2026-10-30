@@ -41,8 +41,8 @@ def build_biography_section(styles, assets, content_width, content_height):
         Paragraph(
             "<b>Prion</b> es una banda argentina de Death Metal "
             "originaria de Buenos Aires, formada en 1994. "
-            "Con más de 30 años (con <b>Gregorio Kochian</b> "
-            "como único miembro constante), desarrolló una propuesta "
+            "Con más de 30 años, con <b>Gregorio Kochian</b> "
+            "como único miembro constante, desarrolló una propuesta "
             "basada en la brutalidad y técnica, con riffs de alta "
             "intensidad dentro del death metal.",
             biography_body_style,

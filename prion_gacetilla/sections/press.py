@@ -1,13 +1,16 @@
 from reportlab.lib.units import mm
 from reportlab.platypus import Image, Paragraph, Spacer, Table, TableStyle
 
+from ..translations import TRANSLATIONS
 from ..utils import make_h1, make_qr, style_data_table
 
 
 QR_NAMES = ["Instagram", "YouTube", "Bandcamp", "Spotify"]
 
 
-def build_press_section(styles, assets, links):
+def build_press_section(styles, assets, links, text=None):
+    if text is None:
+        text = TRANSLATIONS["es"]["press"]
     link_rows = [
         [
             Paragraph(f"<b>{name}</b>", styles["Body"]),
@@ -53,24 +56,18 @@ def build_press_section(styles, assets, links):
     )
 
     return [
-        Paragraph("PRENSA · ESCUCHA · REDES", styles["H1"]),
-        Paragraph(
-            "Canales oficiales para prensa, contratación, "
-            "entrevistas, cobertura y escucha del material:",
-            styles["Body"],
-        ),
+        Paragraph(text["heading"], styles["H1"]),
+        Paragraph(text["intro"], styles["Body"]),
         links_table,
         Spacer(1, 7 * mm),
-        make_h1("ACCESO DIRECTO", styles["H1"]),
+        make_h1(text["direct_heading"], styles["H1"]),
         Spacer(1, 4 * mm),
         qr_table,
         Spacer(1, 6 * mm),
-        make_h1("MATERIAL DE PRENSA", styles["H1"]),
+        make_h1(text["materials_heading"], styles["H1"]),
         Spacer(1, 4 * mm),
         Paragraph(
-            "Este documento puede acompañarse con fotografías "
-            "oficiales en alta resolución, logo vectorial, portada "
-            "del nuevo lanzamiento, rider técnico y fechas confirmadas.",
+            text["materials"],
             styles["Body"],
         ),
         Spacer(1, 5 * mm),

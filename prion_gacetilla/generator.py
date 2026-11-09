@@ -3,33 +3,51 @@ from reportlab.lib.units import mm
 from reportlab.platypus import SimpleDocTemplate
 
 from .assets import prepare_assets
-from .config import OUTPUT_PATH, SOCIAL_LINKS
+from .config import PROJECT_DIR, OUTPUT_PATH, SOCIAL_LINKS
 from .page_layout import create_page_background
 from .sections.biography import build_biography_section
 from .sections.cover import build_cover
 from .sections.current import build_current_section
 from .sections.press import build_press_section
 from .styles import create_styles
+from .translations import TRANSLATIONS
 
 
 DEFAULT_FRAME_PADDING = 6
 
 
-def build_story(styles, assets, links, content_width, content_height):
+def build_story(
+    styles,
+    assets,
+    links,
+    content_width,
+    content_height,
+    language="es",
+):
+    text = TRANSLATIONS[language]
     return (
-        build_cover(styles, assets, links)
-        + build_current_section(styles, assets)
+        build_cover(styles, assets, links, text["cover"])
+        + build_current_section(styles, assets, text["current"])
         + build_biography_section(
             styles,
             assets,
             content_width,
             content_height,
+            text["biography"],
         )
-        + build_press_section(styles, assets, links)
+        + build_press_section(styles, assets, links, text["press"])
     )
 
 
-def generate_pdf(output_path=OUTPUT_PATH):
+def generate_pdf(output_path=None, language="es"):
+    if language not in TRANSLATIONS:
+        raise ValueError(f"Idioma no soportado: {language}")
+    if output_path is None:
+        output_path = (
+            OUTPUT_PATH
+            if language == "es"
+            else PROJECT_DIR / "PRION_Press_Kit_2026.pdf"
+        )
     assets = prepare_assets()
     styles = create_styles()
     document = SimpleDocTemplate(
@@ -49,6 +67,7 @@ def generate_pdf(output_path=OUTPUT_PATH):
         SOCIAL_LINKS,
         content_width,
         content_height,
+        language,
     )
     page_background = create_page_background(
         assets.cover,
@@ -63,5 +82,15 @@ def generate_pdf(output_path=OUTPUT_PATH):
 
 
 def main():
-    output_path = generate_pdf()
+    import argparse
+
+    parser = argparse.ArgumentParser(description="Genera la gacetilla de Prion.")
+    parser.add_argument(
+        "--language",
+        choices=tuple(TRANSLATIONS),
+        default="es",
+        help="Idioma del documento (predeterminado: es).",
+    )
+    arguments = parser.parse_args()
+    output_path = generate_pdf(language=arguments.language)
     print(f"PDF creado: {output_path}")

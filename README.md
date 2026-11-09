@@ -15,6 +15,16 @@ También se puede ejecutar como módulo:
 python -m prion_gacetilla
 ```
 
+Para generar la versión en inglés, ejecutá:
+
+```powershell
+python gacetilla.py --language en
+```
+
+La versión inglesa se guarda como `PRION_Press_Kit_2026.pdf`. El idioma
+predeterminado sigue siendo español (`es`), y puede indicarse explícitamente
+con `python gacetilla.py --language es`.
+
 Los originales de las imágenes deben estar en `src/images/`. El PDF se genera
 en la raíz del proyecto y las versiones JPG optimizadas junto a sus originales.
 Las tapas originales de `Time of Plagues`, `Impressions`, `Uncertain Process`
@@ -33,5 +43,6 @@ se reserva para el fondo del documento y se optimiza como
 - `prion_gacetilla/page_layout.py`: fondo y pie de página.
 - `prion_gacetilla/utils.py`: componentes reutilizables, como QR y tablas.
 - `prion_gacetilla/sections/`: portada, actualidad, biografía y prensa.
+- `prion_gacetilla/translations.py`: textos en español e inglés.
 - `prion_gacetilla/generator.py`: ensamblado de secciones y creación del PDF.
 - `gacetilla.py`: punto de entrada compatible.

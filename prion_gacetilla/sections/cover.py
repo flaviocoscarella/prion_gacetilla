@@ -1,8 +1,12 @@
 from reportlab.lib.units import mm
 from reportlab.platypus import Image, PageBreak, Paragraph, Spacer, Table, TableStyle
 
+from ..translations import TRANSLATIONS
 
-def build_cover(styles, assets, links):
+
+def build_cover(styles, assets, links, text=None):
+    if text is None:
+        text = TRANSLATIONS["es"]["cover"]
     cover_logo_width = 155 * mm
     story = [
         Spacer(1, 20 * mm),
@@ -18,7 +22,7 @@ def build_cover(styles, assets, links):
             styles["CoverSubBold"],
         ),
         Spacer(1, 10 * mm),
-        Paragraph("GACETILLA DE PRENSA · 2026", styles["CoverSubBold"]),
+        Paragraph(text["title"], styles["CoverSubBold"]),
         Spacer(1, 23 * mm),
         # Paragraph(
         #     "<b>SHADOWS SWIRL</b><br/>"
@@ -26,7 +30,7 @@ def build_cover(styles, assets, links):
         #     styles["Quote"],
         # ),
         Paragraph(
-            "Más de tres décadas de Death Metal extremo.",
+            text["slogan"],
             styles["CoverSubBoldOblique"],
         ),
         Spacer(1, 17 * mm),

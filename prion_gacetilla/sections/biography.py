@@ -3,22 +3,25 @@ from reportlab.lib.styles import ParagraphStyle
 from reportlab.lib.units import mm
 from reportlab.platypus import Image, PageBreak, Paragraph, Spacer, Table, TableStyle
 
+from ..translations import TRANSLATIONS
 from ..utils import make_h1, style_data_table
 
 
-def build_biography_section(styles, assets, content_width, content_height):
+def build_biography_section(
+    styles,
+    assets,
+    content_width,
+    content_height,
+    text=None,
+):
+    if text is None:
+        text = TRANSLATIONS["es"]["biography"]
     biography_body_style = ParagraphStyle(
         "BiographyBody",
         parent=styles["Body"],
         leading=12.5,
     )
-    discography = [
-        ["2003", "Time of Plagues", "Larga duración"],
-        ["2008", "Impressions", "Larga duración"],
-        ["2015", "Uncertain Process", "Larga duración"],
-        ["2019", "Aberrant Calamity", "Larga duración"],
-        ["2026", "Shadows Swirl", "Adelanto del nuevo disco"],
-    ]
+    discography = text["discography"]
     discography_table = Table(
         [
             [
@@ -37,84 +40,19 @@ def build_biography_section(styles, assets, content_width, content_height):
     )
 
     biography = [
-        Paragraph("BIOGRAFÍA", styles["H1"]),
-        Paragraph(
-            "<b>Prion</b> es una banda argentina de Death Metal "
-            "originaria de Buenos Aires, formada en 1994. "
-            "Con más de 30 años, con <b>Gregorio Kochian</b> "
-            "como único miembro constante, desarrolló una propuesta "
-            "basada en la brutalidad y técnica, con riffs de alta "
-            "intensidad dentro del death metal.",
-            biography_body_style,
-        ),
-        Paragraph(
-            "Durante su primera y extensa etapa, la batería estuvo a cargo "
-            "de <b>Marcelo Russo</b>, quien formó parte desde los "
-            "comienzos, con una interrupción entre 2004 y 2006 donde <b>Rodrigo "
-            "Robledo</b> ocupó su lugar, y permaneció en la banda hasta fines de "
-            "2015. Russo participó en la grabación de los principales trabajos "
-            "de estudio de esa etapa, incluyendo <i>Time of Plagues</i> (2003), "
-            "<i>Impressions</i> (2008) y <i>Uncertain Process</i> (2015).",
-            biography_body_style,
-        ),
-        Paragraph(
-            "Entre los integrantes de la primera etapa de Prion también formaron "
-            "parte <b>Diego Braña</b> e <b>Iñaki Meli</b>, quienes estuvieron "
-            "en la banda desde su fundación en 1994, participando activamente en la "
-            "trayectoria inicial. En el año 2000 Iñaki abandonó la banda y fue "
-            "reemplazado por <b>Walter Barrionuevo</b>, y Diego Braña hizo lo propio "
-            "en el 2004, quedando la banda conformada como trío.",
-            biography_body_style,
-        ),
-        Paragraph(
-            "A fines de 2015, luego de la tercera gira europea de la banda, "
-            "Marcelo Russo dejó la banda y fue reemplazado por "
-            "<b>Flavio Coscarella</b>, quien se incorporó a la formación en "
-            "2016. Desde entonces, Flavio pasó a ocupar la batería y "
-            "participó en la siguiente etapa discográfica de la banda, "
-            "incluyendo <i>Aberrant Calamity</i> (2019).",
-            biography_body_style,
-        ),
-        Paragraph(
-            "La discografía de la banda incluye "
-            "<i>Time of Plagues</i> (2003), "
-            "<i>Impressions</i> (2008), "
-            "<i>Uncertain Process</i> (2015) y "
-            "<i>Aberrant Calamity</i> (2019), además de material "
-            "previo, splits y participaciones en compilaciones.",
-            biography_body_style,
-        ),
-        Paragraph(
-            "<i>Aberrant Calamity</i>, publicado por Comatose Music "
-            "en 2019, consolidó el enfoque de Prion hacia un Death "
-            "Metal brutal y técnico. Actualmente la banda trabaja "
-            "en nuevo material, cuyo primer adelanto es "
-            "<i>Shadows Swirl</i>.",
-            biography_body_style,
-        ),
+        Paragraph(text["heading"], styles["H1"]),
+        *[
+            Paragraph(paragraph, biography_body_style)
+            for paragraph in text["paragraphs"]
+        ],
         Spacer(1, 3 * mm),
-        make_h1("DISCOGRAFÍA SELECCIONADA", styles["H1"]),
+        make_h1(text["discography_heading"], styles["H1"]),
         Spacer(1, 3 * mm),
         discography_table,
         Spacer(1, 5 * mm),
-        make_h1("SONIDO Y PROPUESTA", styles["H1"]),
+        make_h1(text["sound_heading"], styles["H1"]),
         Spacer(1, 3 * mm),
-        Paragraph(
-            "A lo largo de su trayectoria, Prion desarrolló una identidad "
-            "sonora en constante evolución, incorporando diferentes matices "
-            "dentro del Death Metal extremo. Su álbum debut, "
-            "<i>Time of Plagues</i> (2003), presenta un enfoque más cercano "
-            "al Death/Thrash, con una combinación de elementos que remite "
-            "a la agresividad de Death y Sepultura. En <i>Impressions</i> "
-            "(2008), el sonido se volvió más brutal y contundente, con una "
-            "orientación marcada hacia la intensidad y la precisión de "
-            "Hate Eternal. A partir de <i>Uncertain Process</i> (2015), "
-            "la música incorporó cierta afinidad con la oscuridad, "
-            "la densidad y el carácter disonante de Immolation, sin "
-            "abandonar la brutalidad, la agresividad y la técnica "
-            "desarrolladas en la etapa anterior.",
-            biography_body_style,
-        ),
+        Paragraph(text["sound"], biography_body_style),
     ]
 
     column_widths = [content_width * 0.7, content_width * 0.3]

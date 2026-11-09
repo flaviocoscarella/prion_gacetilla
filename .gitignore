@@ -2,3 +2,4 @@
 *.pdf
 *.webp
 __pycache__/
+*.rar
